@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Valentine Frida</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Brush Script MT', 'Arial Rounded MT Bold', 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #ffe6f2;
+            background-image: 
+                radial-gradient(#ff66b2 2px, transparent 2px),
+                radial-gradient(#ff99cc 1px, transparent 1px);
+            background-size: 60px 60px, 30px 30px;
+            background-position: 0 0, 30px 30px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.4);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            border: 8px solid #ff3385;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #ff3385;
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 0px #ff99cc;
+        }
+        
+        .name-highlight {
+            color: #ff0066;
+            text-shadow: 3px 3px 0px #ffccdd;
+            font-size: 3.5rem;
+            display: inline-block;
+            transform: rotate(-5deg);
+            animation: nameFloat 3s ease-in-out infinite;
+        }
+        
+        .subtitle {
+            color: #ff66b2;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .heart-icon {
+            color: #ff3385;
+            font-size: 4.5rem;
+            margin: 20px 0;
+            animation: heartbeat 1.2s infinite;
+        }
+        
+        .message {
+            background-color: #fff0f7;
+            padding: 30px;
+            border-radius: 20px;
+            border: 3px dashed #ff66b2;
+            margin: 30px 0;
+            font-size: 1.3rem;
+            color: #cc0066;
+            line-height: 1.6;
+            text-align: left;
+            position: relative;
+        }
+        
+        .message::before {
+            content: '"';
+            font-size: 5rem;
+            color: #ff99cc;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+        }
+        
+        .message::after {
+            content: '"';
+            font-size: 5rem;
+            color: #ff99cc;
+            position: absolute;
+            bottom: -40px;
+            right: 10px;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+            position: relative;
+            min-height: 120px;
+        }
+        
+        .valentine-button {
+            padding: 20px 45px;
+            font-size: 1.6rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        #yes-button {
+            background-color: #ff3385;
+            color: white;
+            border: 4px solid #ff0066;
+        }
+        
+        #yes-button:hover {
+            background-color: #ff0066;
+            transform: scale(1.05);
+            box-shadow: 0 12px 20px rgba(255, 0, 102, 0.4);
+        }
+        
+        #no-button {
+            background-color: #ffccdd;
+            color: #ff3385;
+            border: 4px solid #ff99cc;
+            position: absolute;
+        }
+        
+        .balloons-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .balloon {
+            width: 85px;
+            height: 105px;
+            border-radius: 50%;
+            position: relative;
+            animation: float 4s ease-in-out infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.8rem;
+        }
+        
+        .balloon:before {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 60px;
+            background-color: #ffcc00;
+        }
+        
+        .balloon:nth-child(1) {
+            background-color: #ff3385;
+            animation-delay: 0s;
+        }
+        
+        .balloon:nth-child(2) {
+            background-color: #ff66b2;
+            animation-delay: 0.5s;
+        }
+        
+        .balloon:nth-child(3) {
+            background-color: #ff99cc;
+            animation-delay: 1s;
+        }
+        
+        .balloon:nth-child(4) {
+            background-color: #ff0066;
+            animation-delay: 1.5s;
+        }
+        
+        .balloon:nth-child(5) {
+            background-color: #ff66b2;
+            animation-delay: 2s;
+        }
+        
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 51, 133, 0.7);
+            font-size: 24px;
+            animation: float-heart 8s linear infinite;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: #ff66b2;
+            font-size: 1rem;
+        }
+        
+        .success-message {
+            display: none;
+            background-color: #ffccdd;
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 30px;
+            border: 5px solid #ff3385;
+        }
+        
+        .success-message h2 {
+            color: #ff0066;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .success-message p {
+            color: #cc0066;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+        
+        .success-icon {
+            font-size: 6rem;
+            color: #ff0066;
+            margin: 20px 0;
+            animation: spin 2s linear infinite;
+        }
+        
+        .frida-name {
+            font-size: 3rem;
+            color: #ff0066;
+            text-shadow: 2px 2px 0px #ff99cc;
+            margin: 10px 0;
+        }
+        
+        /* Animations */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-25px); }
+        }
+        
+        @keyframes float-heart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes nameFloat {
+            0%, 100% { transform: rotate(-5deg) translateY(0); }
+            50% { transform: rotate(-5deg) translateY(-10px); }
+        }
+        
+        /* Personal touches */
+        .personal-note {
+            background-color: #fffafd;
+            border-left: 5px solid #ff3385;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: left;
+            border-radius: 0 15px 15px 0;
+            font-style: italic;
+        }
+        
+        .signature {
+            text-align: right;
+            font-family: 'Brush Script MT', cursive;
+            font-size: 1.8rem;
+            color: #ff0066;
+            margin-top: 15px;
+        }
+        
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                border-width: 5px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .name-highlight {
+                font-size: 2.7rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .message {
+                padding: 25px;
+                font-size: 1.2rem;
+            }
+            
+            .valentine-button {
+                padding: 18px 35px;
+                font-size: 1.4rem;
+            }
+            
+            .buttons-container {
+                min-height: 150px;
+            }
+            
+            .balloon {
+                width: 65px;
+                height: 85px;
+                font-size: 1.5rem;
+            }
+            
+            .balloons-container {
+                gap: 25px;
+            }
+            
+            .success-message h2 {
+                font-size: 2.2rem;
+            }
+            
+            .frida-name {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .name-highlight {
+                font-size: 2.2rem;
+            }
+            
+            .heart-icon {
+                font-size: 3.5rem;
+            }
+            
+            .valentine-button {
+                padding: 15px 30px;
+                font-size: 1.2rem;
+            }
+            
+            .buttons-container {
+                min-height: 180px;
+                gap: 15px;
+            }
+            
+            .balloon {
+                width: 55px;
+                height: 70px;
+                font-size: 1.3rem;
+            }
+            
+            .balloons-container {
+                gap: 15px;
+            }
+            
+            .success-message h2 {
+                font-size: 1.8rem;
+            }
+            
+            .frida-name {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts in background -->
+    <div class="floating-hearts" id="floating-hearts"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Will You Be My Valentine, <span class="name-highlight">Frida</span>?</h1>
+            <div class="subtitle">My dearest Frida, I have a very special question just for you...</div>
+            <div class="heart-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+        </div>
+        
+        <div class="message">
+            <p>My sweet Frida, from the moment I met you, my world has been brighter, warmer, and filled with more joy than I ever thought possible. Your smile lights up my day, your laughter is my favorite melody, and your love is the greatest gift I've ever received.</p>
+            
+            <div class="personal-note">
+                Every moment with you feels magical, Frida. Whether we're sharing adventures or quiet moments, you make everything special. This Valentine's Day, I want to celebrate the incredible person you are and ask you the most important question...
+            </div>
+            
+            <p>You're not just my girlfriend, Frida - you're my best friend, my inspiration, and my greatest happiness. I cherish every laugh, every conversation, and every memory we create together.</p>
+            
+            <div class="signature">With all my love</div>
+        </div>
+        
+        <div class="buttons-container" id="buttons-container">
+            <button class="valentine-button" id="yes-button">YES FRIDA! <i class="fas fa-heart"></i></button>
+            <button class="valentine-button" id="no-button">No <i class="far fa-frown"></i></button>
+        </div>
+        
+        <div class="balloons-container">
+            <div class="balloon">F</div>
+            <div class="balloon">R</div>
+            <div class="balloon">I</div>
+            <div class="balloon">D</div>
+            <div class="balloon">A</div>
+        </div>
+        
+        <div class="success-message" id="success-message">
+            <h2>You Said YES! <i class="fas fa-heart"></i></h2>
+            <div class="frida-name">Frida</div>
+            <div class="success-icon">
+                <i class="fas fa-heart-circle-check"></i>
+            </div>
+            <p>Oh Frida, you've just made me the happiest person in the world! I'm over the moon that you said YES to being my Valentine!</p>
+            <p>This Valentine's Day will be unforgettable because I get to love the most amazing, beautiful, and wonderful person in the world - YOU!</p>
+            <p>No way i was going to forget to ask you to be my valentine this year baby!</p>
+            <div class="personal-note" style="margin-top: 20px;">
+                Thank you for being you, Frida. Thank you for your kindness, your warmth, and for sharing your incredible heart with me. I can't wait to celebrate our love!
+            </div>
+            <div class="signature">Forever yours</div>
+        </div>
+        
+        <div class="footer">
+            <p>Made with <i class="fas fa-heart" style="color: #ff3385;"></i> especially for Frida</p>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts in the background
+        const floatingHeartsContainer = document.getElementById('floating-hearts');
+        const heartIcons = ['❤️', '💖', '💗', '💓', '💞', '💕'];
+        
+        for (let i = 0; i < 30; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.fontSize = `${Math.random() * 20 + 15}px`;
+            heart.style.animationDelay = `${Math.random() * 5}s`;
+            heart.style.opacity = `${Math.random() * 0.5 + 0.3}`;
+            floatingHeartsContainer.appendChild(heart);
+        }
+        
+        // Add some hearts with Frida's initial
+        for (let i = 0; i < 10; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = 'F';
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.fontSize = `${Math.random() * 25 + 20}px`;
+            heart.style.animationDelay = `${Math.random() * 5}s`;
+            heart.style.opacity = `${Math.random() * 0.5 + 0.3}`;
+            heart.style.color = '#ff0066';
+            heart.style.fontWeight = 'bold';
+            floatingHeartsContainer.appendChild(heart);
+        }
+        
+        // Get the buttons
+        const yesButton = document.getElementById('yes-button');
+        const noButton = document.getElementById('no-button');
+        const buttonsContainer = document.getElementById('buttons-container');
+        const successMessage = document.getElementById('success-message');
+        
+        // Variables for the moving no button
+        let moveCount = 0;
+        const maxMoveCount = 15;
+        
+        // Function to move the "No" button to a random position
+        function moveNoButton() {
+            moveCount++;
+            
+            // If the button has been moved enough times, disable it
+            if (moveCount >= maxMoveCount) {
+                noButton.disabled = true;
+                noButton.innerHTML = "Okay Frida, you win! <i class='far fa-grin-squint-tears'></i>";
+                noButton.style.backgroundColor = "#ff99cc";
+                noButton.style.color = "#ff0066";
+                noButton.style.cursor = "not-allowed";
+                return;
+            }
+            
+            const containerRect = buttonsContainer.getBoundingClientRect();
+            
+            // Calculate new random position within the container
+            const maxX = containerRect.width - noButton.offsetWidth;
+            const maxY = containerRect.height - noButton.offsetHeight;
+            
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+            
+            // Apply new position
+            noButton.style.left = `${newX}px`;
+            noButton.style.top = `${newY}px`;
+            
+            // Change button text occasionally with personalized messages
+            const funnyMessages = [
+                "No way, Frida!",
+                "Are you sure, my love?",
+                "Maybe ask Frida again?",
+                "Try again, sweetheart!",
+                "Not today, Frida!",
+                "Oops, you missed!",
+                "Catch me if you can!",
+                "Frida deserves a yes!",
+                "You can't say no to Frida!",
+                "Think about it, Frida!"
+            ];
+            
+            if (moveCount % 3 === 0) {
+                const randomIndex = Math.floor(Math.random() * funnyMessages.length);
+                noButton.innerHTML = `${funnyMessages[randomIndex]} <i class='far fa-grin-tongue-wink'></i>`;
+                
+                // Reset text after a short delay
+                setTimeout(() => {
+                    noButton.innerHTML = "No <i class='far fa-frown'></i>";
+                }, 800);
+            }
+            
+            // Make button smaller as it moves more
+            const scale = 1 - (moveCount / maxMoveCount) * 0.3;
+            noButton.style.transform = `scale(${scale})`;
+        }
+        
+        // Add event listeners
+        noButton.addEventListener('mouseover', moveNoButton);
+        noButton.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            moveNoButton();
+        });
+        
+        // For mobile: also move when trying to click
+        noButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            moveNoButton();
+        });
+        
+        // Handle the "Yes" button click
+        yesButton.addEventListener('click', function() {
+            // Hide the buttons and show success message
+            document.querySelector('.buttons-container').style.display = 'none';
+            document.querySelector('.balloons-container').style.display = 'none';
+            document.querySelector('.message').style.display = 'none';
+            successMessage.style.display = 'block';
+            
+            // Create celebratory hearts
+            createCelebrationHearts();
+            
+            // Play a celebration sound (if allowed by browser)
+            playCelebrationSound();
+            
+            // Update page title
+            document.title = "Frida Said YES! ❤️";
+        });
+        
+        // Create celebration hearts when "Yes" is clicked
+        function createCelebrationHearts() {
+            const celebrationContainer = document.querySelector('.container');
+            
+            for (let i = 0; i < 40; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                
+                // Alternate between hearts and Frida's initial
+                if (i % 3 === 0) {
+                    heart.innerHTML = 'F';
+                    heart.style.color = '#ff0066';
+                    heart.style.fontWeight = 'bold';
+                } else {
+                    heart.innerHTML = '❤️';
+                }
+                
+                heart.style.position = 'absolute';
+                heart.style.left = `${Math.random() * 80 + 10}%`;
+                heart.style.fontSize = `${Math.random() * 30 + 25}px`;
+                heart.style.animation = `float-heart ${Math.random() * 3 + 2}s linear`;
+                heart.style.animationDelay = `${Math.random() * 0.5}s`;
+                heart.style.opacity = '0.9';
+                heart.style.zIndex = '100';
+                
+                celebrationContainer.appendChild(heart);
+                
+                // Remove heart after animation completes
+                setTimeout(() => {
+                    heart.remove();
+                }, 3000);
+            }
+            
+            // Make the balloons dance
+            const balloons = document.querySelectorAll('.balloon');
+            balloons.forEach(balloon => {
+                balloon.style.animation = 'float 0.5s ease-in-out infinite';
+            });
+        }
+        
+        // Play a subtle celebration sound
+        function playCelebrationSound() {
+            try {
+                // Create audio context for simple beep sounds
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) {
+                    const audioContext = new AudioContext();
+                    
+                    // Play a cheerful ascending tone sequence
+                    playNote(audioContext, 523.25, 0.1, 0); // C5
+                    playNote(audioContext, 659.25, 0.1, 0.1); // E5
+                    playNote(audioContext, 783.99, 0.1, 0.2); // G5
+                    playNote(audioContext, 1046.50, 0.3, 0.3); // C6
+                    
+                    // Add extra celebratory notes
+                    setTimeout(() => {
+                        playNote(audioContext, 1318.51, 0.2, 0); // E6
+                        playNote(audioContext, 1567.98, 0.3, 0.1); // G6
+                    }, 500);
+                }
+            } catch (e) {
+                console.log("Audio not supported or user blocked audio");
+            }
+        }
+        
+        // Helper function to play a note
+        function playNote(audioContext, frequency, duration, startTime) {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = frequency;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime + startTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + startTime + duration);
+            
+            oscillator.start(audioContext.currentTime + startTime);
+            oscillator.stop(audioContext.currentTime + startTime + duration);
+        }
+        
+        // Make the no button move on page load for a fun effect
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                moveNoButton();
+            }, 1000);
+            
+            // Add a welcome message in console
+            console.log("%c💖 For Frida - The most amazing Valentine 💖", "color: #ff0066; font-size: 18px; font-weight: bold;");
+            console.log("%cThis website was made with love for Frida!", "color: #ff66b2; font-size: 14px;");
+        });
+        
+        // Add some interactivity to Frida's name
+        const fridaName = document.querySelector('.name-highlight');
+        fridaName.addEventListener('mouseover', function() {
+            this.style.transform = 'rotate(-5deg) scale(1.1)';
+            this.style.transition = 'transform 0.3s';
+        });
+        
+        fridaName.addEventListener('mouseout', function() {
+            this.style.transform = 'rotate(-5deg) scale(1)';
+        });
+    </script>
+</body>
+</html>
